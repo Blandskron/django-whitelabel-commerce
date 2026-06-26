@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Carrito - {{ store_settings.store_name }}{% endblock %}
+{% block content %}
+<section class="section narrow">
+  <h1>Carrito</h1>
+  {% if cart.is_empty %}
+    <p>Tu carrito esta vacio.</p>
+    <a class="button" href="{% url 'catalog:product_list' %}">Ver productos</a>
+  {% else %}
+    <div class="cart-lines">
+      {% for item in cart %}
+        <article class="cart-line">
+          <div>
+            <strong>{{ item.product.name }}</strong>
+            <p>{{ store_settings.currency }} {{ item.unit_price }} c/u</p>
+          </div>
+          <form method="post" action="{% url 'cart:update' item.product.id %}" class="quantity-form">
+            {% csrf_token %}
+            <input type="number" name="quantity" value="{{ item.quantity }}" min="1">
+            <button type="submit">Actualizar</button>
+          </form>
+          <strong>{{ store_settings.currency }} {{ item.line_total }}</strong>
+          <form method="post" action="{% url 'cart:remove' item.product.id %}">
+            {% csrf_token %}
+            <button type="submit" class="link-button">Quitar</button>
+          </form>
+        </article>
+      {% endfor %}
+    </div>
+    <div class="summary">
+      <strong>Total: {{ store_settings.currency }} {{ cart.total }}</strong>
+      <a class="button" href="{% url 'orders:checkout' %}">Ir al checkout</a>
+    </div>
+    <form method="post" action="{% url 'cart:clear' %}">
+      {% csrf_token %}
+      <button type="submit" class="link-button">Vaciar carrito</button>
+    </form>
+  {% endif %}
+</section>
+{% endblock %}

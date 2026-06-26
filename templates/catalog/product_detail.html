@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ product.name }} - {{ store_settings.store_name }}{% endblock %}
+{% block content %}
+<section class="product-detail">
+  <div class="detail-media">
+    {% if product.main_image %}
+      <img src="{{ product.main_image.url }}" alt="{{ product.name }}">
+    {% else %}
+      <span>Sin imagen</span>
+    {% endif %}
+  </div>
+  <div class="detail-content">
+    <p class="product-category">{{ product.category.name }}</p>
+    <h1>{{ product.name }}</h1>
+    {% if product.short_description %}<p>{{ product.short_description }}</p>{% endif %}
+    <strong class="price">{{ store_settings.currency }} {{ product.price }}</strong>
+    {% if store_settings.show_stock %}<p>Stock: {{ product.stock }}</p>{% endif %}
+    <form class="buy-form" method="post" action="{% url 'cart:add' product.id %}">
+      {% csrf_token %}
+      <label>Cantidad <input type="number" name="quantity" value="1" min="1"></label>
+      <button class="button" type="submit">Agregar al carrito</button>
+    </form>
+    {% if product.description %}<div class="rich-text">{{ product.description|linebreaks }}</div>{% endif %}
+  </div>
+</section>
+{% endblock %}

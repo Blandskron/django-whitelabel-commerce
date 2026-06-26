@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Productos - {{ store_settings.store_name }}{% endblock %}
+{% block content %}
+<section class="section">
+  <div class="section-heading">
+    <h1>Productos</h1>
+  </div>
+  <div class="category-grid">
+    {% for category in categories %}
+      <a class="category-pill" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+    {% endfor %}
+  </div>
+  <div class="product-grid">
+    {% for product in products %}
+      {% include "includes/product_card.html" %}
+    {% empty %}
+      <p>Aun no hay productos publicados.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Pedido {{ order.code }} - {{ store_settings.store_name }}{% endblock %}
+{% block content %}
+<section class="section narrow">
+  <h1>Pedido {{ order.code }}</h1>
+  <p>Estado: {{ order.get_status_display }} - Pago: {{ order.get_payment_status_display }}</p>
+  <div class="cart-lines">
+    {% for item in order.items.all %}
+      <article class="cart-line">
+        <div>
+          <strong>{{ item.product_name }}</strong>
+          <p>{{ item.quantity }} x {{ store_settings.currency }} {{ item.unit_price }}</p>
+        </div>
+        <strong>{{ store_settings.currency }} {{ item.line_total }}</strong>
+      </article>
+    {% endfor %}
+  </div>
+  <div class="summary">
+    <strong>Total: {{ store_settings.currency }} {{ order.total }}</strong>
+    {% if whatsapp_url %}
+      <a class="button" href="{{ whatsapp_url }}" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+    {% endif %}
+  </div>
+  {% if store_settings.bank_details %}
+    <h2>Datos bancarios</h2>
+    <pre class="bank-box">{{ store_settings.bank_details }}</pre>
+  {% endif %}
+</section>
+{% endblock %}

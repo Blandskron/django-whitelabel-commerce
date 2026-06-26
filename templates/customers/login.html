@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}Ingresar - {{ store_settings.store_name }}{% endblock %}
+{% block content %}
+<section class="section narrow">
+  <h1>Ingresar</h1>
+  <form method="post" class="form-panel">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="button" type="submit">Ingresar</button>
+  </form>
+  <p><a href="{% url 'customers:register' %}">Crear cuenta</a></p>
+</section>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title %}Contacto - {{ store_settings.store_name }}{% endblock %}
+{% block content %}
+<section class="section narrow">
+  <h1>Contacto</h1>
+  {% if store_settings.contact_email %}<p>Email: {{ store_settings.contact_email }}</p>{% endif %}
+  {% if store_settings.whatsapp_number %}<p>WhatsApp: {{ store_settings.whatsapp_number }}</p>{% endif %}
+  {% if store_settings.address %}<p>Direccion: {{ store_settings.address }}</p>{% endif %}
+  {% if store_settings.bank_details %}
+    <h2>Datos bancarios</h2>
+    <pre class="bank-box">{{ store_settings.bank_details }}</pre>
+  {% endif %}
+</section>
+{% endblock %}

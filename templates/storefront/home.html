@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}{{ store_settings.store_name }}{% endblock %}
+{% block content %}
+<section class="hero">
+  <div>
+    <h1>{{ store_settings.hero_title }}</h1>
+    <p>{{ store_settings.hero_subtitle }}</p>
+    <div class="actions">
+      <a class="button" href="{% url 'catalog:product_list' %}">Ver productos</a>
+      <a class="button secondary" href="{% url 'storefront:contact' %}">Contacto</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <h2>Destacados</h2>
+    <a href="{% url 'catalog:product_list' %}">Ver todo</a>
+  </div>
+  <div class="product-grid">
+    {% for product in featured_products %}
+      {% include "includes/product_card.html" %}
+    {% empty %}
+      <p>Aun no hay productos destacados.</p>
+    {% endfor %}
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-heading">
+    <h2>Categorias</h2>
+  </div>
+  <div class="category-grid">
+    {% for category in categories %}
+      <a class="category-pill" href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+    {% empty %}
+      <p>Crea categorias desde el admin para mostrarlas aqui.</p>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

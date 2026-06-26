@@ -1,0 +1,25 @@
+{% load static %}
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ store_settings.store_name }}{% endblock %}</title>
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+  <style>
+    :root {
+      --brand-primary: {{ store_settings.primary_color }};
+      --brand-secondary: {{ store_settings.secondary_color }};
+    }
+  </style>
+</head>
+<body>
+  {% include "includes/navbar.html" %}
+  {% include "includes/messages.html" %}
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  {% include "includes/footer.html" %}
+  {% include "includes/whatsapp_button.html" %}
+</body>
+</html>

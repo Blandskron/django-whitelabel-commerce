@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Checkout - {{ store_settings.store_name }}{% endblock %}
+{% block content %}
+<section class="checkout-layout">
+  <div>
+    <h1>Checkout</h1>
+    <form method="post" class="form-panel">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="button" type="submit">Crear pedido</button>
+    </form>
+  </div>
+  <aside class="order-summary">
+    <h2>Resumen</h2>
+    {% for item in cart %}
+      <p>{{ item.quantity }} x {{ item.product.name }} <strong>{{ store_settings.currency }} {{ item.line_total }}</strong></p>
+    {% endfor %}
+    <hr>
+    <strong>Total: {{ store_settings.currency }} {{ cart.total }}</strong>
+    {% if store_settings.bank_details %}
+      <h3>Datos bancarios</h3>
+      <pre class="bank-box">{{ store_settings.bank_details }}</pre>
+    {% endif %}
+  </aside>
+</section>
+{% endblock %}

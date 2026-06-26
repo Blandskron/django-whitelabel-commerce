@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Mi cuenta - {{ store_settings.store_name }}{% endblock %}
+{% block content %}
+<section class="section narrow">
+  {% if user.is_authenticated %}
+    <h1>Mi cuenta</h1>
+    <p>{{ user.username }}</p>
+    <h2>Mis pedidos</h2>
+    {% for order in orders %}
+      <p><a href="{{ order.get_absolute_url }}">{{ order.code }}</a> - {{ order.get_status_display }} - {{ store_settings.currency }} {{ order.total }}</p>
+    {% empty %}
+      <p>Aun no tienes pedidos asociados a tu cuenta.</p>
+    {% endfor %}
+    <form method="post" action="{% url 'customers:logout' %}">
+      {% csrf_token %}
+      <button class="link-button" type="submit">Cerrar sesion</button>
+    </form>
+  {% else %}
+    <h1>Mi cuenta</h1>
+    <p>Ingresa para ver tu perfil e historial.</p>
+    <a class="button" href="{% url 'customers:login' %}">Ingresar</a>
+  {% endif %}
+</section>
+{% endblock %}
