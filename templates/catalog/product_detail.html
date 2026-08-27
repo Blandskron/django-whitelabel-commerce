@@ -18,7 +18,11 @@
     <form class="buy-form" method="post" action="{% url 'cart:add' product.id %}">
       {% csrf_token %}
       <label>Cantidad <input type="number" name="quantity" value="1" min="1"></label>
-      <button class="button" type="submit">Agregar al carrito</button>
+      {% if product.is_available or store_settings.allow_out_of_stock_orders %}
+        <button class="button" type="submit">Agregar al carrito</button>
+      {% else %}
+        <button class="button" type="button" disabled>Sin stock</button>
+      {% endif %}
     </form>
     {% if product.description %}<div class="rich-text">{{ product.description|linebreaks }}</div>{% endif %}
   </div>

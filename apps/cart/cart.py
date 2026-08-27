@@ -45,7 +45,9 @@ class Cart:
             }
 
     def __len__(self):
-        return sum(self.data.values())
+        # Cuenta solo productos que todavía existen y están publicados. Así una
+        # sesión antigua no muestra unidades que ya no pueden comprarse.
+        return sum(item["quantity"] for item in self)
 
     @property
     def items(self):

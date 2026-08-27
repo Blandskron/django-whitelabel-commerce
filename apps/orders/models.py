@@ -92,5 +92,3 @@ class OrderItem(TimeStampedModel):
 
     def __str__(self):
         return f"{self.quantity} x {self.product_name}"
-
-# Create your models here.

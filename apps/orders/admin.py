@@ -34,5 +34,3 @@ class OrderAdmin(admin.ModelAdmin):
         ("Entrega", {"fields": ("shipping_address", "customer_note")}),
         ("Fechas", {"fields": ("created_at", "updated_at")}),
     )
-
-# Register your models here.

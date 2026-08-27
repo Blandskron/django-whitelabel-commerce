@@ -45,5 +45,3 @@ class StoreSettings(TimeStampedModel):
     def load(cls):
         settings, _ = cls.objects.get_or_create(pk=1)
         return settings
-
-# Create your models here.

@@ -80,5 +80,3 @@ class ProductImage(TimeStampedModel):
 
     def __str__(self):
         return self.alt_text or f"Imagen de {self.product}"
-
-# Create your models here.

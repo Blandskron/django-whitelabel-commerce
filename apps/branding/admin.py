@@ -15,5 +15,3 @@ class StoreSettingsAdmin(admin.ModelAdmin):
 
     def has_add_permission(self, request):
         return not StoreSettings.objects.exists()
-
-# Register your models here.

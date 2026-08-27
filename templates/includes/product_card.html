@@ -11,10 +11,14 @@
     <h3><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></h3>
     {% if product.short_description %}<p>{{ product.short_description }}</p>{% endif %}
     <strong>{{ store_settings.currency }} {{ product.price }}</strong>
-    <form method="post" action="{% url 'cart:add' product.id %}">
-      {% csrf_token %}
-      <input type="hidden" name="next" value="{{ request.get_full_path }}">
-      <button class="button" type="submit">Agregar</button>
-    </form>
+    {% if product.is_available or store_settings.allow_out_of_stock_orders %}
+      <form method="post" action="{% url 'cart:add' product.id %}">
+        {% csrf_token %}
+        <input type="hidden" name="next" value="{{ request.get_full_path }}">
+        <button class="button" type="submit">Agregar</button>
+      </form>
+    {% else %}
+      <span>Sin stock</span>
+    {% endif %}
   </div>
 </article>

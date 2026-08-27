@@ -31,5 +31,3 @@ def profile(request):
     if request.user.is_authenticated:
         orders = Order.objects.filter(user=request.user)[:20]
     return render(request, "customers/profile.html", {"orders": orders})
-
-# Create your views here.

@@ -30,5 +30,3 @@ def category_detail(request, slug):
         "catalog/category_detail.html",
         {"category": category, "products": products},
     )
-
-# Create your views here.

@@ -15,5 +15,3 @@ def home(request):
 
 def contact(request):
     return render(request, "storefront/contact.html")
-
-# Create your views here.

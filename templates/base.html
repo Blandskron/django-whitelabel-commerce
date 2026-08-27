@@ -5,6 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% block title %}{{ store_settings.store_name }}{% endblock %}</title>
+  {% if store_settings.favicon %}<link rel="icon" href="{{ store_settings.favicon.url }}">{% endif %}
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
   <style>
     :root {
